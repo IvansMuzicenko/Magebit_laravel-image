@@ -56,18 +56,30 @@ class ImageController extends BaseController {
             $target_file = $target_dir . basename($image['name']);
             $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
             $size = getimagesize($image["tmp_name"]);
-            if ($size) {
-                $count++;
-                Storage::disk("local")->put($image['name'], file_get_contents($image["tmp_name"]));
+            $output = [
+                "status" => true,
+                "count" => $count,
+            ];
+
+            if (
+                $image_file_type == "jpg" && $image_file_type == "png" && $image_file_type == "jpeg"
+                && $image_file_type == "gif"
+            ) {
+                if ($size && $size < 1000000) {
+                    $count++;
+                    Storage::disk("local")->put($image['name'], file_get_contents($image["tmp_name"]));
+                    $output['files'] = $images;
+                    $output['message'] = "image(s) added";
+                } else {
+                    $output['status'] = false;
+                    $output['message'] = "images size can not be larger than 1MB";
+                }
+            } else {
+                $output['status'] = false;
+                $output['message'] = "images type can only be .jpg, .jpeg, .png,.gif";
             }
         }
-        $output = [
-            "status" => true,
-            "message" => "add action",
-            "count" => $count,
-            "data" => $_POST,
-            "files" => $images,
-        ];
+
 
         return response()->json($output, 200);
     }
