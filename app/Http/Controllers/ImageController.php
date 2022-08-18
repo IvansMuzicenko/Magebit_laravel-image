@@ -56,6 +56,7 @@ class ImageController extends BaseController {
             $target_file = $target_dir . basename($image['name']);
             $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
             $size = getimagesize($image["tmp_name"]);
+            $file_size = $image['size'];
             $output = [
                 "status" => true,
                 "count" => $count,
@@ -65,7 +66,7 @@ class ImageController extends BaseController {
                 $image_file_type == "jpg" || $image_file_type == "png" || $image_file_type == "jpeg"
                 || $image_file_type == "gif"
             ) {
-                if ($size && $size < 1000000) {
+                if ($size && $file_size < 1000000) {
                     $count++;
                     Storage::disk("local")->put($image['name'], file_get_contents($image["tmp_name"]));
                     $output['files'] = $images;
