@@ -1,3 +1,9 @@
+document.querySelector("#images").onchange = (evt) => {
+    const [file] = document.querySelector("#images").files;
+    if (file) {
+        document.querySelector(".preview").src = URL.createObjectURL(file);
+    }
+};
 document.querySelector(".image-form").onsubmit = function (event) {
     event.preventDefault();
 

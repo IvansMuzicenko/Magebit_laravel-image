@@ -410,6 +410,7 @@
         <input id="images" type="file" name="images[]" multiple>
         <button type="submit">Submit</button>
     </form>
+    <img class="preview" src="">
 </body>
 
 </html>
