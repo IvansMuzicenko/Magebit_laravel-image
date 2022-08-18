@@ -405,7 +405,7 @@
 </head>
 
 <body>
-    <form action="api/images/add" method="POST" enctype="multipart/form-data">
+    <form class="image-form" action="api/images/add" method="POST" enctype="multipart/form-data">
         <label for="images">Images</label>
         <input id="images" type="file" name="images[]" multiple>
         <button type="submit">Submit</button>
@@ -413,3 +413,4 @@
 </body>
 
 </html>
+<script src="./assets/js/script.js"></script>
