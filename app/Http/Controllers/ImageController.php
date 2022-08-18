@@ -62,8 +62,8 @@ class ImageController extends BaseController {
             ];
 
             if (
-                $image_file_type == "jpg" && $image_file_type == "png" && $image_file_type == "jpeg"
-                && $image_file_type == "gif"
+                $image_file_type == "jpg" || $image_file_type == "png" || $image_file_type == "jpeg"
+                || $image_file_type == "gif"
             ) {
                 if ($size && $size < 1000000) {
                     $count++;
