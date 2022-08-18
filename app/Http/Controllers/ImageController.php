@@ -48,10 +48,20 @@ class ImageController extends BaseController {
         };
 
         $target_dir = __DIR__ . "/uploads";
+
+        if ($_FILES['images']['error'] > 0) {
+            return
+                response()->json([
+                    "status" => false,
+                    "message" => "No images found",
+                ], 200);
+        }
+
         $images = $_FILES['images'];
         $groupByEntry($images);
         $count = 0;
         global $data;
+
         foreach ($images as $image) {
             $target_file = $target_dir . basename($image['name']);
             $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
