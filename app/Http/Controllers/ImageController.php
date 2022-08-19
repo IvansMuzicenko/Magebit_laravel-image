@@ -49,13 +49,16 @@ class ImageController extends BaseController {
 
         $target_dir = __DIR__ . "/uploads";
 
-        if ($_FILES['images']['error'] > 0) {
-            return
-                response()->json([
-                    "status" => false,
-                    "message" => "No images found",
-                ], 200);
+        foreach ($_FILES['images']['error'] as $error) {
+            if ($error > 0) {
+                return
+                    response()->json([
+                        "status" => false,
+                        "message" => "No images found",
+                    ], 200);
+            }
         }
+
 
         $images = $_FILES['images'];
         $groupByEntry($images);
